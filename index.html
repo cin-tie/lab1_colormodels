@@ -1,30 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">    
-        <title>Color Models Converter - CMYK, RGB, HLS</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Models Converter - CMYK, RGB, HLS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Color Models Converter</h1>
+            <p class="subtitle">Interactive conversion between CMYK, RGB, and HLS color models</p>
+        </header>
 
-    <body>
-        <div class="container">
-            <header>
-                <h1>Color Models Converter</h1>
-                <p class="subtitle">Interactive conversion between CMYK, RGB, and HLS color models</p>
-            </header>
-
-            <div class="color-preview">
-                <div id="current-color"></div>
-                <div class="color-info">
-                    <span id="hex-value">#FFFFFF</span>
-                    <div id="warning" class="warning hidden"></div>
+        <div class="main-content">
+            
+            <div class="color-content">
+                <div class="color-preview">
+                    <div id="current-color"></div>
+                    <div class="color-info">
+                        <span id="hex-value">#FFFFFF</span>
+                        <div id="warning" class="warning hidden"></div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="color-models">
-                
-                
+                <div class="gradient-picker">
+                    <h3>Gradient Picker</h3>
+                    <div class="gradient-container">
+                        <div class="hue-slider-container">
+                            <label>Hue:</label>
+                            <input type="range" id="hue-slider" min="0" max="360" value="0">
+                        </div>
+                        <div class="gradient-canvas-container">
+                            <canvas id="gradient-canvas" width="300" height="300"></canvas>
+                            <div class="gradient-cursor" id="gradient-cursor"></div>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="color-models">
+                    <div class="model-card">
+                        <h2>RGB Model</h2>
+                        <div class="input-group">
+                            <label for="r">R (0-255):</label>
+                            <input type="range" id="r-slider" min="0" max="255" value="255">
+                            <input type="number" id="r-input" min="0" max="255" value="255">
+                        </div>
+                        <div class="input-group">
+                            <label for="g">G (0-255):</label>
+                            <input type="range" id="g-slider" min="0" max="255" value="255">
+                            <input type="number" id="g-input" min="0" max="255" value="255">
+                        </div>
+                        <div class="input-group">
+                            <label for="b">B (0-255):</label>
+                            <input type="range" id="b-slider" min="0" max="255" value="255">
+                            <input type="number" id="b-input" min="0" max="255" value="255">
+                        </div>
+                    </div>
+
+                    <div class="model-card">
+                        <h2>CMYK Model</h2>
+                        <div class="input-group">
+                            <label for="c">C (0-100%):</label>
+                            <input type="range" id="c-slider" min="0" max="100" value="0">
+                            <input type="number" id="c-input" min="0" max="100" value="0">
+                        </div>
+                        <div class="input-group">
+                            <label for="m">M (0-100%):</label>
+                            <input type="range" id="m-slider" min="0" max="100" value="0">
+                            <input type="number" id="m-input" min="0" max="100" value="0">
+                        </div>
+                        <div class="input-group">
+                            <label for="y">Y (0-100%):</label>
+                            <input type="range" id="y-slider" min="0" max="100" value="0">
+                            <input type="number" id="y-input" min="0" max="100" value="0">
+                        </div>
+                        <div class="input-group">
+                            <label for="k">K (0-100%):</label>
+                            <input type="range" id="k-slider" min="0" max="100" value="0">
+                            <input type="number" id="k-input" min="0" max="100" value="0">
+                        </div>
+                    </div>
+
+                    <div class="model-card">
+                        <h2>HLS Model</h2>
+                        <div class="input-group">
+                            <label for="h">H (0-360°):</label>
+                            <input type="range" id="h-slider" min="0" max="360" value="0">
+                            <input type="number" id="h-input" min="0" max="360" value="0">
+                        </div>
+                        <div class="input-group">
+                            <label for="l">L (0-100%):</label>
+                            <input type="range" id="l-slider" min="0" max="100" value="100">
+                            <input type="number" id="l-input" min="0" max="100" value="100">
+                        </div>
+                        <div class="input-group">
+                            <label for="s">S (0-100%):</label>
+                            <input type="range" id="s-slider" min="0" max="100" value="0">
+                            <input type="number" id="s-input" min="0" max="100" value="0">
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="hex-input">
@@ -32,9 +108,19 @@
                 <input type="text" id="hex-input" value="#FFFFFF" maxlength="7">
             </div>
 
+            <div class="color-palette">
+                <h3>Color Palette</h3>
+                <div class="palette-categories">
+                    <div class="palette-category active" data-category="basic">Basic</div>
+                    <div class="palette-category" data-category="pastel">Pastel</div>
+                    <div class="palette-category" data-category="vibrant">Vibrant</div>
+                </div>
+                <div class="palette-grid" id="palette-grid"></div>
+            </div>
         </div>
+    </div>
 
-        <script src="color-conversion.js"></script>
-        <script src="script.js"></script>
-    </body>
+    <script src="color-conversion.js"></script>
+    <script src="script.js"></script>
+</body>
 </html>
