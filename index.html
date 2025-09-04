@@ -1,3 +1,40 @@
-<html>
-    hello world!
-</html> 
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">    
+        <title>Color Models Converter - CMYK, RGB, HLS</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <header>
+                <h1>Color Models Converter</h1>
+                <p class="subtitle">Interactive conversion between CMYK, RGB, and HLS color models</p>
+            </header>
+
+            <div class="color-preview">
+                <div id="current-color"></div>
+                <div class="color-info">
+                    <span id="hex-value">#FFFFFF</span>
+                    <div id="warning" class="warning hidden"></div>
+                </div>
+            </div>
+
+            <div class="color-models">
+                
+                
+
+            </div>
+
+            <div class="hex-input">
+                <label for="hex">HEX Color:</label>
+                <input type="text" id="hex-input" value="#FFFFFF" maxlength="7">
+            </div>
+
+        </div>
+
+        <script src="color-conversion.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>
