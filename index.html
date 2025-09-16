@@ -14,13 +14,19 @@
         </header>
 
         <div class="main-content">
-            
             <div class="color-content">
                 <div class="color-preview">
                     <div id="current-color"></div>
                     <div class="color-info">
                         <span id="hex-value">#FFFFFF</span>
                         <div id="warning" class="warning hidden"></div>
+                    </div>
+                </div>
+                <div class="color-preview-fixed" id="color-preview-fixed">
+                    <div id="current-color-fixed"></div>
+                    <div class="color-info">
+                        <span id="hex-value-fixed">#FFFFFF</span>
+                        <div id="warning-fixed" class="warning hidden"></div>
                     </div>
                 </div>
 
@@ -36,6 +42,16 @@
                             <div class="gradient-cursor" id="gradient-cursor"></div>
                         </div>
                     </div>
+                </div>
+
+                <div class="color-palette">
+                    <h3>Color Palette</h3>
+                    <div class="palette-categories">
+                        <div class="palette-category active" data-category="basic">Basic</div>
+                        <div class="palette-category" data-category="pastel">Pastel</div>
+                        <div class="palette-category" data-category="vibrant">Vibrant</div>
+                    </div>
+                    <div class="palette-grid" id="palette-grid"></div>
                 </div>
 
                 <div class="hex-input">
@@ -106,16 +122,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="color-palette">
-                <h3>Color Palette</h3>
-                <div class="palette-categories">
-                    <div class="palette-category active" data-category="basic">Basic</div>
-                    <div class="palette-category" data-category="pastel">Pastel</div>
-                    <div class="palette-category" data-category="vibrant">Vibrant</div>
-                </div>
-                <div class="palette-grid" id="palette-grid"></div>
             </div>
         </div>
     </div>

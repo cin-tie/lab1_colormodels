@@ -74,6 +74,7 @@ function rgbToHls(r, g, b) {
     
     const max = Math.max(rNorm, gNorm, bNorm);
     const min = Math.min(rNorm, gNorm, bNorm);
+    
     let h, s, l = (max + min) / 2;
     
     if (max === min) {
@@ -96,7 +97,7 @@ function rgbToHls(r, g, b) {
                 break;
         }
         
-        h = h / 6;
+        h /= 6;
     }
     
     return {
@@ -109,9 +110,9 @@ function rgbToHls(r, g, b) {
 // HLS to RGB conversion
 function hlsToRgb(h, l, s) {
     // Validate input
-    if (h < 0 || h > 360 || l < 0 || l > 100 || s < 0 || s > 100) {
-        throw new Error('HLS values must be: H(0-360), L(0-100), S(0-100)');
-    }
+    if (h < 0 || h > 360) throw new Error('Hue must be between 0 and 360');
+    if (l < 0 || l > 100) throw new Error('Lightness must be between 0 and 100');
+    if (s < 0 || s > 100) throw new Error('Saturation must be between 0 and 100');
     
     // Normalize HLS values
     const hNorm = h / 360;
@@ -165,8 +166,10 @@ function rgbToHex(r, g, b) {
 
 // HEX to RGB conversion
 function hexToRgb(hex) {
-    // Remove # if present and validate length
+    // Remove # if present
     hex = hex.replace('#', '');
+    
+    // Validate length
     if (hex.length !== 6) {
         throw new Error('HEX color must be 6 characters long');
     }
@@ -211,4 +214,75 @@ function getLuminance(r, g, b) {
 function getTextColor(r, g, b) {
     const luminance = getLuminance(r, g, b);
     return luminance > 0.5 ? '#000000' : '#FFFFFF';
+}
+
+// HSV to RGB conversion (дополнительная функция)
+function hsvToRgb(h, s, v) {
+    h = h % 360;
+    if (h < 0) h += 360;
+    
+    s = clamp(s, 0, 100) / 100;
+    v = clamp(v, 0, 100) / 100;
+    
+    const c = v * s;
+    const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+    const m = v - c;
+    
+    let r, g, b;
+    
+    if (h >= 0 && h < 60) {
+        r = c; g = x; b = 0;
+    } else if (h >= 60 && h < 120) {
+        r = x; g = c; b = 0;
+    } else if (h >= 120 && h < 180) {
+        r = 0; g = c; b = x;
+    } else if (h >= 180 && h < 240) {
+        r = 0; g = x; b = c;
+    } else if (h >= 240 && h < 300) {
+        r = x; g = 0; b = c;
+    } else {
+        r = c; g = 0; b = x;
+    }
+    
+    return {
+        r: Math.round((r + m) * 255),
+        g: Math.round((g + m) * 255),
+        b: Math.round((b + m) * 255)
+    };
+}
+
+// RGB to HSV conversion (дополнительная функция)
+function rgbToHsv(r, g, b) {
+    r = clamp(r, 0, 255) / 255;
+    g = clamp(g, 0, 255) / 255;
+    b = clamp(b, 0, 255) / 255;
+    
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    const delta = max - min;
+    
+    let h = 0;
+    let s = max === 0 ? 0 : delta / max;
+    let v = max;
+    
+    if (delta !== 0) {
+        switch (max) {
+            case r:
+                h = (g - b) / delta + (g < b ? 6 : 0);
+                break;
+            case g:
+                h = (b - r) / delta + 2;
+                break;
+            case b:
+                h = (r - g) / delta + 4;
+                break;
+        }
+        h /= 6;
+    }
+    
+    return {
+        h: Math.round(h * 360),
+        s: Math.round(s * 100),
+        v: Math.round(v * 100)
+    };
 }
